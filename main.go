@@ -1,20 +1,24 @@
 package main
 
 import (
-  "fmt"
-  "log"
+	"flag"
+	"fmt"
+	"log"
 
-  "github.com/mattma/reddit/geddit"
+	"github.com/mattma/reddit/geddit"
 )
 
 func main() {
-  items, err := reddit.Get("golang")
+	q := flag.String("q", "golang", "query for subreddit")
+	flag.Parse()
 
-  if err != nil {
-    log.Fatal(err)
-  }
+	items, err := reddit.Get(*q)
 
-  for _, item := range items {
-    fmt.Println(item)
-  }
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, item := range items {
+		fmt.Println(item)
+	}
 }
